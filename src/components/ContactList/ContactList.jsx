@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
+
 import { Button } from '../ContactList/ContactList.styled';
+
 import { RiDeleteBinLine } from 'react-icons/ri';
 
 const ContactList = ({ contacts, onDeleteContact }) => {

@@ -1,50 +1,49 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from './ContactForm.styled';
 
-class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
+const ContactForm = ({ addContact }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'number') {
+      setNumber(value);
+    }
   };
 
-  handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
-    this.props.addContact(name, number);
-    this.setState({ name: '', number: '' });
+    addContact(name, number);
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <Input
-          placeholder="Name"
-          type="text"
-          name="name"
-          value={name}
-          onChange={this.handleInputChange}
-          required
-        />
-        <Input
-          placeholder="Number"
-          type="tel"
-          name="number"
-          value={number}
-          onChange={this.handleInputChange}
-          required
-        />
-        <Button type="submit">Add contact</Button>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Input
+        placeholder="Name"
+        type="text"
+        name="name"
+        value={name}
+        onChange={handleInputChange}
+        required
+      />
+      <Input
+        placeholder="Number"
+        type="tel"
+        name="number"
+        value={number}
+        onChange={handleInputChange}
+        required
+      />
+      <Button type="submit">Add contact</Button>
+    </Form>
+  );
+};
 
 ContactForm.propTypes = {
   addContact: PropTypes.func.isRequired,
