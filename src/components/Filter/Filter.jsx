@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+
+import PropTypes from 'prop-types';
+
 import { Input } from '../ContactList/ContactList.styled';
 
 const Filter = ({ onChange }) => {
   const [filter, setFilter] = useState('');
 
-  const handleFilterChange = event => {
-    const value = event.target.value;
+  const handleFilterChange = ({ target: { value } }) => {
     setFilter(value);
     onChange(value);
   };
